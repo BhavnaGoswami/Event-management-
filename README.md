@@ -18,3 +18,6 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+after this run command in terminal
+python manage.py makemigrations
+python manage.py migrate
