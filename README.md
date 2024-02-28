@@ -1,65 +1,106 @@
-# Event-management-
-Major project 
-class Event:
-    def __init__(self, name, date, location, description):
-        self.name = name
-        self.date = date
-        self.location = location
-        self.description = description
+pip install django 
 
-class EventManager:
-    def __init__(self):
-        self.events = []
+from pathlib import Path
+import os
 
-    def add_event(self, event):
-        self.events.append(event)
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-    def view_events(self):
-        if self.events:
-            print("List of Events:")
-            for idx, event in enumerate(self.events, start=1):
-                print(f"{idx}. {event.name} - Date: {event.date} - Location: {event.location}")
-        else:
-            print("No events found.")
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-    def delete_event(self, index):
-        try:
-            del self.events[index]
-            print("Event deleted successfully.")
-        except IndexError:
-            print("Invalid event index.")
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'YOUR_SECRET_KEY'
 
-def main():
-    event_manager = EventManager()
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-    while True:
-        print("\nEvent Management System")
-        print("1. Add Event")
-        print("2. View Events")
-        print("3. Delete Event")
-        print("4. Exit")
+ALLOWED_HOSTS = []
 
-        choice = input("Enter your choice: ")
+# Application definition
 
-        if choice == '1':
-            name = input("Enter event name: ")
-            date = input("Enter event date: ")
-            location = input("Enter event location: ")
-            description = input("Enter event description: ")
-            event = Event(name, date, location, description)
-            event_manager.add_event(event)
-            print("Event added successfully.")
-        elif choice == '2':
-            event_manager.view_events()
-        elif choice == '3':
-            index = int(input("Enter the index of the event to delete: ")) - 1
-            event_manager.delete_event(index)
-        elif choice == '4':
-            print("Exiting...")
-            break
-        else:
-            print("Invalid choice. Please try again.")
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'events',  # Add your app here
+]
 
-if __name__ == "__main__":
-    main()
-    
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'event_management_project.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'event_management_project.wsgi.application'
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# Password validation
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
